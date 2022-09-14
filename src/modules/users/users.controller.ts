@@ -5,17 +5,19 @@ import {
   UserLoginCredentials,
 } from '../../models/users.entity';
 import { UserService } from './users.service';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../authorization/authorization.guard';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async getUser(@Param('id') userId: number): Promise<User> {
     return this.userService.findById(userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('get/email/:email')
   async findByEmail(@Param('email') email: string): Promise<User> {
     return await this.userService.findByemail(email);

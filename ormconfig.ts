@@ -7,5 +7,5 @@ export default {
   database: 'vcp-database',
   synchronize: true,
   logging: false,
-  entities: ['./build/**/*.entity.js'],
+  entities: ['./dist/**/*.entity.js'],
 };

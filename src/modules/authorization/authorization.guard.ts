@@ -1,5 +1,4 @@
 import {
-  CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
@@ -7,31 +6,20 @@ import {
 import { expressJwtSecret } from 'jwks-rsa';
 import { promisify } from 'util';
 import jwt from 'express-jwt';
+import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class AuthorizationGuard implements CanActivate {
-  async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req = context.switchToHttp().getRequest();
-    const res = context.switchToHttp().getResponse();
-    const auth0Domain: string = process.env.AUTH0_DOMAIN;
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  canActivate(context: ExecutionContext) {
+    // Add your custom authentication logic here
+    // for example, call super.logIn(request) to establish a session.
+    return super.canActivate(context);
+  }
 
-    const checkJwt = promisify(
-      jwt({
-        secret: expressJwtSecret({
-          cache: true,
-          rateLimit: true,
-          jwksRequestsPerMinute: 5,
-          jwksUri: `https://${auth0Domain}/.well-known/jwks.json`,
-        }),
-        algorithms: ['RS256'],
-      }),
-    );
-
-    try {
-      await checkJwt(req, res);
-      return true;
-    } catch (error) {
-      throw new UnauthorizedException(error);
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw err || new UnauthorizedException();
     }
+    return user;
   }
 }

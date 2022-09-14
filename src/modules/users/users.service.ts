@@ -12,6 +12,7 @@ import {
   UserLoginCredentials,
 } from '../../models/users.entity';
 import { JwtService } from '@nestjs/jwt';
+import { Video } from 'src/models/Video.entity';
 
 @Injectable()
 export class UserService {
@@ -61,7 +62,7 @@ export class UserService {
     if (!userDB || !correctPassword) {
       throw new ConflictException(`Email or Password is incorrect!`);
     }
-    const payload = { username: user.email, sub: userDB.id };
+    const payload = { user: userDB };
     return {
       access_token: this.jwtTokenService.sign(payload),
     };
@@ -74,5 +75,19 @@ export class UserService {
   async comparePassword(password: string, hash: string): Promise<boolean> {
     const isMatch = await bcrypt.compare(password, hash);
     return isMatch;
+  }
+
+  async addLikeVideo(userId: number, video: Video): Promise<any[]> {
+    const user = await this.findById(userId);
+    if (user.likedVideos !== null) {
+      const newVideos: Video[] = [...user.likedVideos];
+      newVideos.push(video);
+      user.likedVideos = newVideos;
+    } else {
+      user.likedVideos = [video];
+    }
+    const result = await this.userRepo.save(user);
+
+    return result.likedVideos;
   }
 }

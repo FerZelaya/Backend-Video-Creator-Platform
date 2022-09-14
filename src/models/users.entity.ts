@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from './Base.entity';
+import { Video } from './Video.entity';
 
 @Entity({ name: 'Users' })
 export class User extends BaseEntity {
@@ -18,6 +19,22 @@ export class User extends BaseEntity {
 
   @Column({ name: 'photoUrl', nullable: false })
   photoUrl: string;
+
+  @OneToMany(() => Video, (video) => video.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  Videos: Video[];
+
+  @Column({
+    name: 'likedVideos',
+    nullable: true,
+    array: false,
+    default: () => "'[]'",
+    type: 'jsonb',
+  })
+  likedVideos?: Array<Video>;
 }
 
 export class UserInput {

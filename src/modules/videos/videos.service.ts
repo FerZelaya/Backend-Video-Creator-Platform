@@ -13,6 +13,27 @@ export class VideosService {
     private readonly userService: UserService,
   ) {}
 
+  async showCreatorProfile(userId: number): Promise<object> {
+    const user = await this.userService.findById(userId);
+    if (!user) {
+      throw new NotFoundException(`User with provided user id not found`);
+    }
+    const videos = await this.findVideosByUserId(userId);
+    if (!videos) {
+      throw new NotFoundException(`Videos with provided user id not found`);
+    }
+
+    const profile = {
+      user,
+      videos,
+    };
+    return profile;
+  }
+
+  async findOneVideoById(id: number): Promise<Video> {
+    return await this.videosRepo.findOneBy({ id });
+  }
+
   async findAllPublished(): Promise<Video[]> {
     return await this.videosRepo.find({
       relations: { User: true },

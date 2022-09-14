@@ -35,6 +35,17 @@ export class User extends BaseEntity {
     type: 'jsonb',
   })
   likedVideos?: Array<Video>;
+
+  @Column({
+    name: 'followers',
+    nullable: true,
+    array: false,
+    type: 'simple-array',
+  })
+  followers?: Array<number>;
+
+  @Column({ name: 'refreshToekn', nullable: true })
+  refreshToken: string;
 }
 
 export class UserInput {
@@ -43,6 +54,7 @@ export class UserInput {
   email: string;
   password: string;
   photoUrl: string;
+  refreshToken: string;
 }
 
 export class UserLoginCredentials {

@@ -46,6 +46,18 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('unfollow/:creatorId')
+  async funFollowCreator(
+    @Param('creatorId') creatorId: number,
+    @Req() request: Request,
+  ): Promise<boolean> {
+    return await this.userService.removeFollower(
+      request.user['sub'],
+      creatorId,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async getUser(@Param('id') userId: number): Promise<User> {
     return this.userService.findById(userId);

@@ -174,7 +174,7 @@ export class UserService {
     return result.followers ? true : false;
   }
 
-  async removeFollowe(userId: number, creatorId: number): Promise<boolean> {
+  async removeFollower(userId: number, creatorId: number): Promise<boolean> {
     const creator = await this.findById(creatorId);
     if (!creator) {
       throw new ConflictException(`Creator with id: ${creatorId} not found!`);
@@ -182,8 +182,9 @@ export class UserService {
     if (creator.followers !== null) {
       const newFollowers: number[] = this.removeItemOnce(
         creator.followers,
-        userId,
+        userId.toString(),
       );
+
       creator.followers = newFollowers;
     } else {
       creator.followers = [creator.id];
@@ -193,7 +194,7 @@ export class UserService {
     return result.followers ? true : false;
   }
 
-  removeItemOnce = (arr, value) => {
+  removeItemOnce = (arr, value: string) => {
     const index = arr.indexOf(value);
     if (index > -1) {
       arr.splice(index, 1);

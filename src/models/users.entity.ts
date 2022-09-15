@@ -1,5 +1,4 @@
-import { Type } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from './Base.entity';
 import { Video } from './Video.entity';
 

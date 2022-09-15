@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './Base.entity';
 import { User } from './users.entity';

@@ -1,7 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { User } from 'src/models/users.entity';
-import { jwtConstants } from '../../constants/constants';
 
 type JwtPayload = {
   sub: number;

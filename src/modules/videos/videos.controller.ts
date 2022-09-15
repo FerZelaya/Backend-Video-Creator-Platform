@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -30,6 +31,18 @@ export class VideosController {
   ): Promise<Video> {
     try {
       return await this.videosService.createVideo(video, request.user.username);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Put('edit/:videoId')
+  async editVideo(
+    @Param('videoId') videoId: number,
+    @Body() video: VideoInput,
+  ): Promise<Video> {
+    try {
+      return await this.videosService.updateVideo(video, videoId);
     } catch (error) {
       throw error;
     }

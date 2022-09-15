@@ -15,7 +15,6 @@ import {
 import { UserService } from './users.service';
 import { JwtAuthGuard } from '../authorization/authorization.guard';
 import { Request } from 'express';
-import RequestWithUser from 'src/constants/requestWithUser.interface';
 import { RefreshTokenGuard } from '../authorization/refreshToken.guard';
 
 @Controller('users')

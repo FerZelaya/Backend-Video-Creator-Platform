@@ -57,6 +57,14 @@ export class VideosService {
     return this.videosRepo.save(videoCreated);
   }
 
+  async updateVideo(data: VideoInput, videoId: number): Promise<Video> {
+    const video = await this.findVideoById(videoId);
+    video.title = data.title;
+    video.videoUrl = data.videoUrl;
+    const videoUpdated = await this.videosRepo.save(video);
+    return videoUpdated;
+  }
+
   async findVideosByUserId(id: number): Promise<Video[]> {
     const videos = await this.videosRepo.find({
       relations: { User: true },

@@ -20,7 +20,11 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"typeorm": "typeorm-ts-node-commonjs"
+		"typeorm": "typeorm-ts-node-commonjs",
+		"migrate:create:users:table": "npx typeorm-ts-node-esm migration:create src/migrations/CreateUsersTable",
+		"migrate:generate:users:table": "npx typeorm-ts-node-esm migration:generate src/migrations/CreateUsersTable -d src/models/ ",
+		"migrate:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
+		"migrate:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert"
 	},
 	"dependencies": {
 		"@apollo/gateway": "^0.42.3",

@@ -44,7 +44,7 @@ export class User extends BaseEntity {
   })
   followers?: Array<number>;
 
-  @Column({ name: 'refreshToekn', nullable: true })
+  @Column({ name: 'refreshToken', nullable: true })
   refreshToken: string;
 }
 

@@ -44,6 +44,7 @@ export class VideosService {
         title: true,
         videoUrl: true,
         published: true,
+        id: true,
       },
       where: {
         published: true,

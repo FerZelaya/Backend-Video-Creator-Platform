@@ -31,7 +31,20 @@ export class VideosService {
   }
 
   async findOneVideoById(id: number): Promise<Video> {
-    return await this.videosRepo.findOneBy({ id });
+    return await this.videosRepo.findOne({
+      relations: { User: true },
+      select: {
+        title: true,
+        videoUrl: true,
+        published: true,
+        id: true,
+        created: true,
+        updated: true,
+      },
+      where: {
+        id: id,
+      },
+    });
   }
 
   async findAllPublished(): Promise<Video[]> {

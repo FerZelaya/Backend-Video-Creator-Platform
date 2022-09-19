@@ -40,6 +40,12 @@ export class VideosService {
         id: true,
         created: true,
         updated: true,
+        User: {
+          firstName: true,
+          lastName: true,
+          photoUrl: true,
+          id: true,
+        },
       },
       where: {
         id: id,

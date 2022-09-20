@@ -149,7 +149,7 @@ export class VideosService {
     return result.affected === 1 ? true : false;
   }
   async likeAVideo(videoId: number, user: User): Promise<boolean> {
-    const video = await this.findVideoById(videoId);
+    const video = await this.findOneVideoById(videoId);
     if (!video) {
       throw new NotFoundException(`Video with provided id not found`);
     }
@@ -158,6 +158,6 @@ export class VideosService {
   }
 
   async findVideoById(id: number): Promise<Video> {
-    return await this.videosRepo.findOneBy({ id });
+    return await this.findOneVideoById(id);
   }
 }

@@ -82,7 +82,7 @@ export class VideosController {
     return await this.videosService.pulishOrUnpublishVideo(videoId, userDB.id);
   }
 
-  @Post('like/:videoId')
+  @Get('like/:videoId')
   async likeVideo(
     @Param('videoId') videoId: number,
     @Req() request: RequestWithUser,

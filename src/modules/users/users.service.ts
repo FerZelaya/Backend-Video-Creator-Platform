@@ -167,7 +167,7 @@ export class UserService {
       newFollowers.push(userId);
       creator.followers = newFollowers;
     } else {
-      creator.followers = [creator.id];
+      creator.followers = [userId];
     }
     const result = await this.userRepo.save(creator);
 

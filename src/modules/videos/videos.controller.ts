@@ -62,6 +62,12 @@ export class VideosController {
     return await this.videosService.showCreatorProfile(userId);
   }
 
+  @Get('userCreatorProfile')
+  async userCreatorProfile(@Req() request: RequestWithUser): Promise<object> {
+    const userDB: User = request.user.username;
+    return await this.videosService.showCreatorProfile(userDB.id);
+  }
+
   @Get('details/:videoId')
   async getVideoDetails(@Param('videoId') videoId: number): Promise<Video> {
     return await this.videosService.findOneVideoById(videoId);

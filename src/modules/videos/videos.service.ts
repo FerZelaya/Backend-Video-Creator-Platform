@@ -95,7 +95,10 @@ export class VideosService {
         title: true,
         videoUrl: true,
         published: true,
-        User: {},
+        id: true,
+        User: {
+          id: true,
+        },
       },
       where: {
         User: {

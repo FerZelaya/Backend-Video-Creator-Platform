@@ -36,7 +36,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('follow/:creatorId')
+  @Get('follow/:creatorId')
   async followCreator(
     @Param('creatorId') creatorId: number,
     @Req() request: Request,
@@ -45,7 +45,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('unfollow/:creatorId')
+  @Get('unfollow/:creatorId')
   async funFollowCreator(
     @Param('creatorId') creatorId: number,
     @Req() request: Request,
